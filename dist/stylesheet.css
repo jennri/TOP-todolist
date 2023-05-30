@@ -1,0 +1,41 @@
+html {
+    height: 100vh;
+    width: 100%;
+    margin: 0px;
+    border: 0px;
+}
+
+body {
+    display: grid;
+    height: 100vh;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: repeat(12, 1fr);
+}
+
+.header{
+    border: 1px solid black;
+    grid-column: 1 / 13;
+    grid-row: 1 / 3;
+
+}
+
+.contentcontainer {
+    border: 1px solid black;
+    grid-column: 1/13;
+    grid-row: 3/13;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: repeat(12, 1fr);
+}
+
+.sidebar{
+    border: 1px solid black;
+    grid-area: 1/1/13/4;
+}
+
+.listcontent{
+    border: 1px solid black;
+    grid-area: 1/4/13/13;
+
+}
+
