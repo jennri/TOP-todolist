@@ -1,32 +1,33 @@
 alert('hello')
 
+const LOCAL_STORAGE_LIST_KEY = 'task.lists'
 const listContainer = document.querySelector("[data-list]")
 const newListForm = document.querySelector("[data-new-list]")
 const newListInput = document.querySelector("[data-new-input]")
 
 //
-let lists = [{
-    id: 1,
-    name: 'name'
-}, {
-    id: 2,
-    name: 'wash laundry'
-}];
+let lists = JSON.parse(localStorage.getItem(LOCAL_STORAGE_LIST_KEY)) || [];
 
 newListForm.addEventListener('submit', e => {
     //prevents submission, as doing so will refresh the page
     e.preventDefault();
     const listName = newListInput.value;
+    alert(listName);
     if (listName == null || listName === "") return
     
     const list = createList(listName)
     newListInput.value = null;
     lists.push(list)
     render();
+    save();
 })
 
 function createList(name) {
     return {id: Date.now().toString(), name: name, task: []}
+}
+
+function save(){
+    localStorage.setItem(LOCAL_STORAGE_LIST_KEY, JSON.stringify(lists))
 }
 
 //clears the list and 
