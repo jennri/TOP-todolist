@@ -5,6 +5,7 @@ html {
     border: 0px;
 }
 
+/* Grid structures */
 body {
     display: grid;
     height: 100vh;
@@ -39,3 +40,7 @@ body {
 
 }
 
+/* List styling */
+.tasklist .active {
+    font-weight: bold;
+}

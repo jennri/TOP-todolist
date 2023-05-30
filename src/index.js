@@ -1,52 +1,90 @@
-alert('hello')
+//followed closely to a guide, so the naming system is not precise
+//this logic is for the project list which categorieses to do tasks under larger scale projects
+//when selecting a project, the tasks will be filtered to match 
 
-const LOCAL_STORAGE_LIST_KEY = 'task.lists'
 const listContainer = document.querySelector("[data-list]")
 const newListForm = document.querySelector("[data-new-list]")
 const newListInput = document.querySelector("[data-new-input]")
+const deleteListBtn = document.querySelector("[delete-list-btn]")
 
-//
+//These lines and save() will save the list into your local browswer so reloading them won't remove them
+//the first one saves the tasks list, the second one retains the selected list 
+const LOCAL_STORAGE_LIST_KEY = 'task.lists'
 let lists = JSON.parse(localStorage.getItem(LOCAL_STORAGE_LIST_KEY)) || [];
+const LOCAL_STORAGE_LIST_ID_KEY = 'task.selectedListID'
+let selectedListId = localStorage.getItem(LOCAL_STORAGE_LIST_ID_KEY)
 
+//Renders the saved list
+render();
+
+//When clicked, the selected list item will have the active class and will be the selectedId, this will display related todo tasks on the side
+listContainer.addEventListener('click', e => {
+    if (e.target.tagName.toLowerCase() === 'li') {
+        selectedListId = e.target.dataset.listId
+    saveRender()
+    }
+})
+
+//Removes the selected task list by filtering out the task list with the selectedId
+deleteListBtn.addEventListener('click', () => {
+    lists = lists.filter(list => list.id !== selectedListId)
+    selectedListId = null;
+    saveRender()
+})
+
+//When a new task item is added, it's value is taken and returned to the list object alongside it's id
 newListForm.addEventListener('submit', e => {
     //prevents submission, as doing so will refresh the page
     e.preventDefault();
     const listName = newListInput.value;
-    alert(listName);
     if (listName == null || listName === "") return
-    
+
     const list = createList(listName)
+    //Super useful, it resets the input value once it has been submitted
     newListInput.value = null;
     lists.push(list)
-    render();
-    save();
+    saveRender();
 })
 
 function createList(name) {
-    return {id: Date.now().toString(), name: name, task: []}
+    return { id: Date.now().toString(), name: name, task: [] }
 }
 
-function save(){
+function saveRender(){
+    save();
+    render();
+}
+
+//stores the list and the selectedListId to the localStorage
+function save() {
     localStorage.setItem(LOCAL_STORAGE_LIST_KEY, JSON.stringify(lists))
+    localStorage.setItem(LOCAL_STORAGE_LIST_ID_KEY, selectedListId)
 }
 
-//clears the list and 
-function render(){
+//Whenever a new task list item is added, the entire list is cleared then for each task item
+//it is given a unique id, a class of 'listname' and it's inner text set to the form input
+//then all of the listElements are appended to listContainer, which is a linked to a html element.
+//
+//localStorage retains the selectedListId, so this checks thru each task item and reassigns the 'active' status to the selectedListId 
+//so it doesn't reset after a new task item is added
+function render() {
     clearElement(listContainer)
     lists.forEach(list => {
         const listElement = document.createElement("li")
         listElement.dataset.listId = list.id;
         listElement.classList.add("listname")
         listElement.innerText = list.name
+        if (list.id === selectedListId) {
+            listElement.classList.add('active')
+        }
         listContainer.appendChild(listElement)
     })
-
 }
 
-function clearElement(ele){
+function clearElement(ele) {
     while (ele.firstChild) {
         ele.removeChild(ele.firstChild)
     }
 }
 
-render();
+
