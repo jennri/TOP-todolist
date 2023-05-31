@@ -44,3 +44,30 @@ body {
 .tasklist .active {
     font-weight: bold;
 }
+
+
+
+/* modal styling */
+
+.modal-container {
+    display: none;
+    z-index: 1;
+    top: 50%;
+    left: 50%;
+    margin-left: -100px;
+    margin-top: -100px;
+    position: absolute;
+    border-radius: 25px;
+    padding: 40px;
+    border: 1px solid red;
+}
+.modal-background {
+    display: none;
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #64646463;
+}
+

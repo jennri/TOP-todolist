@@ -28,6 +28,10 @@ const newTaskInput = document.querySelector('[data-new-task-input]')
 
 const clearCompleteTaskBtn = document.querySelector('[data-clear-complete-tasks-btn]')
 
+const modalContainer = document.querySelector('[modal-input-container]')
+const modalBackground = document.querySelector('[modal-background]')
+
+
 //These lines and save() will save the list into your local browswer so reloading them won't remove them
 //the first one saves the tasks list, the second one retains the selected list 
 const LOCAL_STORAGE_LIST_KEY = 'task.lists'
@@ -77,6 +81,8 @@ clearCompleteTaskBtn.addEventListener('click', e => {
     saveRender(); 
 } )
 
+modalBackground.addEventListener('click', closeModal)
+
 
 
 //
@@ -116,7 +122,12 @@ function createList(name) {
 }
 
 function createTask(name) {
-    return { id: Date.now().toString(), name: name, complete: false}
+    return { id: Date.now().toString(), 
+             name: name, 
+             details: '', 
+             priority: '', 
+             dateDue: '',
+             complete: false}
 }
 
 function saveRender(){
@@ -157,6 +168,12 @@ function render() {
     }
 }
 
+function renderTaskCount(selectedList){
+    const incompleteTaskCount = selectedList.task.filter(task => !task.complete).length;
+    const taskString = incompleteTaskCount === 1 ? "task" : "tasks";
+    listCount.innerText = `${incompleteTaskCount} ${taskString} remaining`
+}
+
 function renderTask(selectedList){
     selectedList.task.forEach(task=> {
         //imports the template, true is necessary to import the whole code block
@@ -167,17 +184,16 @@ function renderTask(selectedList){
         const label = taskElement.querySelector('label')
         label.htmlFor = task.id
         label.append(task.name)
+        const editBtn = taskElement.querySelector('button')
+        editBtn.addEventListener('click', ()=> {
+            openModal()
+        })
+
         tasksContainer.appendChild(taskElement)
     })
 
 }
 
-
-function renderTaskCount(selectedList){
-    const incompleteTaskCount = selectedList.task.filter(task => !task.complete).length;
-    const taskString = incompleteTaskCount === 1 ? "task" : "tasks";
-    listCount.innerText = `${incompleteTaskCount} ${taskString} remaining`
-}
 
 function renderLists(){
     lists.forEach(list => {
@@ -198,4 +214,15 @@ function clearElement(ele) {
     }
 }
 
+
+
+function openModal() {
+    modalContainer.style.display = 'block';
+    modalBackground.style.display = 'block';
+}
+
+function closeModal() {
+    modalContainer.style.display = 'none';
+    modalBackground.style.display = 'none';
+}
 

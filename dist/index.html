@@ -53,11 +53,27 @@
         </div>
     </div>
     </div>
+    <div class="modal-background" modal-background> </div>
+        <div class="modal-container" modal-input-container>
+            <form class="edit-task">
+                <div><input type="text" placeholder="task name"></div>
+                <div><input type="text" placeholder="details"></div>
+                <div><input type="date"></div>
+                <div><input type="radio" name="priority">
+                    <input type="radio" name="priority">
+                    <input type="radio" name="priority">
+                </div>
+                <button type="submit" class="editbtn">Confirm</button>
+            </form>
+            </div>
+   
+
     <template task-template>
         <div class="task">
             <input
             type="checkbox">
             <label><span class='custom-checkbox'></span></label>
+            <button>edit</button>
         </div>
     </template>
 </body>
