@@ -17,6 +17,8 @@ const taskTemplate = document.querySelector('[task-template]')
 const newTaskForm = document.querySelector('[data-new-task-form]')
 const newTaskInput = document.querySelector('[data-new-task-input]')
 
+const clearCompleteTaskBtn = document.querySelector('[data-clear-complete-tasks-btn]')
+
 //These lines and save() will save the list into your local browswer so reloading them won't remove them
 //the first one saves the tasks list, the second one retains the selected list 
 const LOCAL_STORAGE_LIST_KEY = 'task.lists'
@@ -27,6 +29,12 @@ let selectedListId = localStorage.getItem(LOCAL_STORAGE_LIST_ID_KEY)
 //Renders the saved list
 render();
 
+
+//
+//
+//Event listeners
+//
+//
 //When clicked, the selected list item will have the active class and will be the selectedId, this will display related todo tasks on the side
 listContainer.addEventListener('click', e => {
     if (e.target.tagName.toLowerCase() === 'li') {
@@ -35,6 +43,8 @@ listContainer.addEventListener('click', e => {
     }
 })
 
+
+//Don't really get this logic
 tasksContainer.addEventListener('click', e => {
     if (e.target.tagName.toLowerCase() === 'input') {
       const selectedList = lists.find(list => list.id === selectedListId)
@@ -51,6 +61,12 @@ deleteListBtn.addEventListener('click', () => {
     selectedListId = null;
     saveRender()
 })
+
+clearCompleteTaskBtn.addEventListener('click', e => {
+    const selectedList = lists.find(list => list.id === selectedListId) 
+    selectedList.task = selectedList.task.filter(task=> !task.complete)
+    saveRender(); 
+} )
 
 
 
