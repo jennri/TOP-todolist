@@ -2,7 +2,6 @@
 //this logic is for the project list which categorieses to do tasks under larger scale projects
 //when selecting a project, the tasks will be filtered to match 
 
-
 const listContainer = document.querySelector("[data-list]")
 const newListForm = document.querySelector("[data-new-list]")
 const newListInput = document.querySelector("[data-new-input]")
@@ -17,6 +16,7 @@ const taskTemplate = document.querySelector('[task-template]')
 
 const newTaskForm = document.querySelector('[data-new-task-form]')
 const newTaskInput = document.querySelector('[data-new-task-input]')
+
 //These lines and save() will save the list into your local browswer so reloading them won't remove them
 //the first one saves the tasks list, the second one retains the selected list 
 const LOCAL_STORAGE_LIST_KEY = 'task.lists'
@@ -35,6 +35,16 @@ listContainer.addEventListener('click', e => {
     }
 })
 
+tasksContainer.addEventListener('click', e => {
+    if (e.target.tagName.toLowerCase() === 'input') {
+      const selectedList = lists.find(list => list.id === selectedListId)
+      const selectedTask = selectedList.task.find(task => task.id === e.target.id)
+      selectedTask.complete = e.target.checked
+      save()
+      renderTaskCount(selectedList)
+    }
+  })
+
 //Removes the selected task list by filtering out the task list with the selectedId
 deleteListBtn.addEventListener('click', () => {
     lists = lists.filter(list => list.id !== selectedListId)
@@ -42,7 +52,15 @@ deleteListBtn.addEventListener('click', () => {
     saveRender()
 })
 
-//When a new task item is added, it's value is taken and returned to the list object alongside it's id
+
+
+//
+//
+//
+//Rendering and displaying new items added to both task and project lists
+//
+//When a new task item is added, it's value is taken and a object is created with the properties deemed relevant
+//The item is then pushed onto the current array and the div is rendered and saved locally
 newListForm.addEventListener('submit', e => {
     //prevents submission, as doing so will refresh the page
     e.preventDefault();
@@ -81,6 +99,11 @@ function saveRender(){
     render();
 }
 
+
+
+//
+//
+//
 //stores the list and the selectedListId to the localStorage
 function save() {
     localStorage.setItem(LOCAL_STORAGE_LIST_KEY, JSON.stringify(lists))
