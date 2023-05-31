@@ -15,6 +15,8 @@ const tasksContainer = document.querySelector('[data-tasks]')
 
 const taskTemplate = document.querySelector('[task-template]')
 
+const newTaskForm = document.querySelector('[data-new-task-form]')
+const newTaskInput = document.querySelector('[data-new-task-input]')
 //These lines and save() will save the list into your local browswer so reloading them won't remove them
 //the first one saves the tasks list, the second one retains the selected list 
 const LOCAL_STORAGE_LIST_KEY = 'task.lists'
@@ -54,15 +56,24 @@ newListForm.addEventListener('submit', e => {
     saveRender();
 })
 
+newTaskForm.addEventListener('submit', e => {
+    e.preventDefault();
+    const taskName = newTaskInput.value;
+    if (taskName == null || taskName === "") return
+
+    const task = createTask(taskName)
+    newTaskInput.value = null;
+    const selectedList = lists.find(list => list.id === selectedListId)
+    selectedList.task.push(task)
+    saveRender();
+})
+
 function createList(name) {
-    return { id: Date.now().toString(), name: name, task: [
-        {
-            id: '1',
-            name: 'randomm',
-            complete: true
-        }
-        
-    ] }
+    return { id: Date.now().toString(), name: name, task: [] }
+}
+
+function createTask(name) {
+    return { id: Date.now().toString(), name: name, complete: false}
 }
 
 function saveRender(){
