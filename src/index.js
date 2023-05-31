@@ -75,14 +75,21 @@ function save() {
 function render() {
     clearElement(listContainer)
     renderLists()
-
+    const selectedList = lists.find(list => list.id === selectedListId)
     if (selectedListId == null) {
         listDisplayContainer.style.display = 'none';
     } else {
         listDisplayContainer.style.display = '';
+        listTitle.innerText = selectedList.name
     }
 
 }
+
+// function renderTaskCount(selectedList){
+//     const incompleteTaskCount = selectedList.task.filter(task => !task.complete).length;
+//     const taskString = incompleteTaskCount === 1 ? "task" : "tasks";
+//     listCount.innerText = `${incompleteTaskCount} ${taskString} remaining`
+// }
 
 function renderLists(){
     lists.forEach(list => {
