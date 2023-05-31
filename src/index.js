@@ -83,10 +83,16 @@ function render() {
         listDisplayContainer.style.display = '';
         listTitle.innerText = selectedList.name;
         renderTaskCount(selectedList)
-        
+        clearElement(tasksContainer)
+        renderTask(selectedList)
 
     }
 }
+
+function renderTask(selectedList){
+
+}
+
 
 function renderTaskCount(selectedList){
     const incompleteTaskCount = selectedList.task.filter(task => !task.complete).length;
