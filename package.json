@@ -17,7 +17,9 @@
   },
   "homepage": "https://github.com/jennri/TOP-todolist#readme",
   "dependencies": {
-    "webpack": "^5.84.1",
+    "webpack": "^5.84.1"
+  },
+  "devDependencies": {
     "webpack-cli": "^5.1.1"
   }
 }

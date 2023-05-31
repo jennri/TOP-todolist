@@ -2,6 +2,15 @@
 //this logic is for the project list which categorieses to do tasks under larger scale projects
 //when selecting a project, the tasks will be filtered to match 
 
+//ideas
+//remove each task individually
+//moves done stuff at the bottom
+//default page when a page is deleted is cute
+//urgency
+//due date
+//edit button
+//cuts off if to long
+
 const listContainer = document.querySelector("[data-list]")
 const newListForm = document.querySelector("[data-new-list]")
 const newListInput = document.querySelector("[data-new-input]")
