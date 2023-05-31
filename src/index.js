@@ -76,11 +76,12 @@ function render() {
     clearElement(listContainer)
     renderLists()
     const selectedList = lists.find(list => list.id === selectedListId)
+    alert(selectedList.name)
     if (selectedListId == null) {
         listDisplayContainer.style.display = 'none';
     } else {
         listDisplayContainer.style.display = '';
-        listTitle.innerText = selectedList.name
+
     }
 
 }
