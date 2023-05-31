@@ -184,7 +184,9 @@ function renderTask(selectedList){
         const editBtn = taskElement.querySelector('button')
         editBtn.id = checkbox.id;
         // let selectedTaskId = editBtn.id;
-        editBtn.addEventListener('click', openModal)
+        editBtn.addEventListener('click', () => {
+            openModal(task.name)
+        })
         tasksContainer.appendChild(taskElement)
     })
 }
@@ -210,13 +212,16 @@ function clearElement(ele) {
 
 
 
-function openModal() {
+function openModal(arg) {
     modalContainer.style.display = 'block';
     modalBackground.style.display = 'block';
     clearElement(modalContainer)
+
+    console.log(arg)
     
     const taskEditElement = document.importNode(taskEditTemplate.content, true)
     const name = taskEditElement.querySelector('[edit-name]')
+    name.value = "tommi"
     const description = taskEditElement.querySelector('[edit-details]')
     const dueDate = taskEditElement.querySelector('[edit-date]')
     const priority = taskEditElement.querySelector('[edit-priority]')
