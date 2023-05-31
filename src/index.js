@@ -2,6 +2,7 @@
 //this logic is for the project list which categorieses to do tasks under larger scale projects
 //when selecting a project, the tasks will be filtered to match 
 
+
 const listContainer = document.querySelector("[data-list]")
 const newListForm = document.querySelector("[data-new-list]")
 const newListInput = document.querySelector("[data-new-input]")
@@ -75,22 +76,23 @@ function save() {
 function render() {
     clearElement(listContainer)
     renderLists()
-    // const selectedList = lists.find(list => list.id === selectedListId)
-    // alert(selectedList.name)
-    // if (selectedListId == null) {
-    //     listDisplayContainer.style.display = 'none';
-    // } else {
-    //     listDisplayContainer.style.display = '';
+    const selectedList = lists.find(list => list.id === selectedListId)
+    if (selectedListId == null) {
+        listDisplayContainer.style.display = 'none';
+    } else {
+        listDisplayContainer.style.display = '';
+        listTitle.innerText = selectedList.name;
+        renderTaskCount(selectedList)
+        
 
-    // }
-
+    }
 }
 
-// function renderTaskCount(selectedList){
-//     const incompleteTaskCount = selectedList.task.filter(task => !task.complete).length;
-//     const taskString = incompleteTaskCount === 1 ? "task" : "tasks";
-//     listCount.innerText = `${incompleteTaskCount} ${taskString} remaining`
-// }
+function renderTaskCount(selectedList){
+    const incompleteTaskCount = selectedList.task.filter(task => !task.complete).length;
+    const taskString = incompleteTaskCount === 1 ? "task" : "tasks";
+    listCount.innerText = `${incompleteTaskCount} ${taskString} remaining`
+}
 
 function renderLists(){
     lists.forEach(list => {
