@@ -22,6 +22,7 @@ const listCount = document.querySelector('[data-list-count]')
 const tasksContainer = document.querySelector('[data-tasks]')
 
 const taskTemplate = document.querySelector('[task-template]')
+const taskEditTemplate = document.querySelector('[task-edit]')
 
 const newTaskForm = document.querySelector('[data-new-task-form]')
 const newTaskInput = document.querySelector('[data-new-task-input]')
@@ -83,8 +84,6 @@ clearCompleteTaskBtn.addEventListener('click', e => {
 
 modalBackground.addEventListener('click', closeModal)
 
-
-
 //
 //
 //
@@ -128,14 +127,12 @@ function createTask(name) {
              priority: '', 
              dateDue: '',
              complete: false}
-}
+}   
 
 function saveRender(){
     save();
     render();
 }
-
-
 
 //
 //
@@ -185,15 +182,12 @@ function renderTask(selectedList){
         label.htmlFor = task.id
         label.append(task.name)
         const editBtn = taskElement.querySelector('button')
-        editBtn.addEventListener('click', ()=> {
-            openModal()
-        })
-
+        editBtn.id = checkbox.id;
+        // let selectedTaskId = editBtn.id;
+        editBtn.addEventListener('click', openModal)
         tasksContainer.appendChild(taskElement)
     })
-
 }
-
 
 function renderLists(){
     lists.forEach(list => {
@@ -219,6 +213,18 @@ function clearElement(ele) {
 function openModal() {
     modalContainer.style.display = 'block';
     modalBackground.style.display = 'block';
+    clearElement(modalContainer)
+    
+    const taskEditElement = document.importNode(taskEditTemplate.content, true)
+    const name = taskEditElement.querySelector('[edit-name]')
+    const description = taskEditElement.querySelector('[edit-details]')
+    const dueDate = taskEditElement.querySelector('[edit-date]')
+    const priority = taskEditElement.querySelector('[edit-priority]')
+    const confirmBtn = taskEditElement.querySelector('button')
+
+    // newListInput.value = null;
+
+    modalContainer.appendChild(taskEditElement)
 }
 
 function closeModal() {
