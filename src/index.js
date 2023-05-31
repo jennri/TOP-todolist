@@ -7,6 +7,11 @@ const newListForm = document.querySelector("[data-new-list]")
 const newListInput = document.querySelector("[data-new-input]")
 const deleteListBtn = document.querySelector("[delete-list-btn]")
 
+const listDisplayContainer = document.querySelector('[data-list-display-container]')
+const listTitle = document.querySelector('[data-list-title]')
+const listCount = document.querySelector('[data-list-count]')
+const tasksContainer = document.querySelector('[data-tasks]')
+
 //These lines and save() will save the list into your local browswer so reloading them won't remove them
 //the first one saves the tasks list, the second one retains the selected list 
 const LOCAL_STORAGE_LIST_KEY = 'task.lists'
@@ -69,6 +74,17 @@ function save() {
 //so it doesn't reset after a new task item is added
 function render() {
     clearElement(listContainer)
+    renderLists()
+
+    if (selectedListId == null) {
+        listDisplayContainer.style.display = 'none';
+    } else {
+        listDisplayContainer.style.display = '';
+    }
+
+}
+
+function renderLists(){
     lists.forEach(list => {
         const listElement = document.createElement("li")
         listElement.dataset.listId = list.id;

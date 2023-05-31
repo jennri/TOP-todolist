@@ -14,9 +14,6 @@
     <div class="contentcontainer"> 
         <div class="sidebar">
             <ul class="tasklist" data-list>
-                <!-- <li class="listname active">Item 1</li>
-                <li class="listname">Item 2</li>
-                <li class="listname">Item 3</li> -->
             </ul>
 
             <form action="" data-new-list>
@@ -29,7 +26,24 @@
             </form>
             <button class="deletebtn" delete-list-btn>Delete</button>
         </div>
-        <div class="listcontent"></div>
+        <div class="listcontent">
+        <div class="todo-list" data-list-display-container>
+            <div class="todo-header">
+                <h2 class="list-title" data-list-title>Title</h2>
+                <p class="task-count" data-list-count>3 tasks remaining</p>
+            </div>
+            <div class="todo-body">
+                <div class="tasks" data-tasks>
+                    <div class="task">
+                        <input
+                        type="checkbox">
+                        <label><span class='custom-checkbox'
+                        >Record video</span></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     </div>
 </body>
 </html>
